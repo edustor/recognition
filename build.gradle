@@ -30,6 +30,7 @@ configurations {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'org.ghost4j:ghost4j:1.0.1'
+    compile 'com.google.zxing:javase:3.3.0'
 
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-logging"

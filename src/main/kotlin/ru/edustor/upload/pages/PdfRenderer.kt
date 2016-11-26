@@ -19,7 +19,7 @@ class PdfRenderer(pdfStream: InputStream) : Iterator<BufferedImage> {
         lastPage = pdfDocument.pageCount - 1
 
         renderer = SimpleRenderer()
-        renderer.resolution = 300
+        renderer.resolution = 200
     }
 
     override fun hasNext(): Boolean {
@@ -28,6 +28,7 @@ class PdfRenderer(pdfStream: InputStream) : Iterator<BufferedImage> {
 
     override fun next(): BufferedImage {
         if (!hasNext()) throw NoSuchElementException()
-        return renderer.render(pdfDocument, nextPage++, nextPage)[0] as BufferedImage
+        val curPage = nextPage++
+        return renderer.render(pdfDocument, curPage, curPage)[0] as BufferedImage
     }
 }
