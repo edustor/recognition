@@ -24,33 +24,4 @@ class TestPdfRenderer {
         ImageIO.write(image, "png", outFile)
     }
 
-    @Test
-    fun saveWebp() {
-        val webpIO = WebpIO()
-
-        val sourceImageURL = javaClass.getResource("/webp_src_image.png")
-        val sourceImage = ImageIO.read(sourceImageURL)
-        val bytes = webpIO.encode(sourceImage)
-
-        val file = File(ARTIFACTS_DIR, "webp_image.webp")
-        file.parentFile.mkdirs()
-
-        file.writeBytes(bytes)
-    }
-
-    @Test
-    fun loadWebp() {
-        val webpIO = WebpIO()
-
-        var image: BufferedImage? = null
-
-        javaClass.getResource("/webp_image.webp").openStream().use { sourceWebpStream ->
-            image = webpIO.decode(sourceWebpStream)
-        }
-
-        val file = File(ARTIFACTS_DIR, "decoded_webp_image.png")
-        file.parentFile.mkdirs()
-
-        ImageIO.write(image, "png", file)
-    }
 }
