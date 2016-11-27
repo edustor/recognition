@@ -1,7 +1,10 @@
 package ru.edustor.recognition.rabbit
 
+import com.google.protobuf.InvalidProtocolBufferException
+import org.springframework.amqp.AmqpRejectAndDontRequeueException
 import org.springframework.amqp.core.ExchangeTypes
 import org.springframework.amqp.rabbit.annotation.*
+import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.stereotype.Component
 import ru.edustor.proto.EdustorPdfProcessingProtos.PdfRecognizedEvent
 import ru.edustor.proto.EdustorPdfProcessingProtos.PdfUploadedEvent
@@ -22,8 +25,14 @@ open class RabbitHandler(var storage: PdfStorageService) {
                     durable = "true"),
             key = "uploaded.pdf.events"
     )))
+    @SendTo("internal.edustor.ru/recognized.pdf.events")
     fun processFile(msg: ByteArray): ByteArray {
-        val event = PdfUploadedEvent.parseFrom(msg)
+        val event: PdfUploadedEvent
+        try {
+            event = PdfUploadedEvent.parseFrom(msg)
+        } catch (e: InvalidProtocolBufferException) {
+            throw AmqpRejectAndDontRequeueException(e)
+        }
 
         val uploadedPdfStream = storage.getUploadedPdf(event.uuid)
         val renderer = PdfRenderer(uploadedPdfStream)

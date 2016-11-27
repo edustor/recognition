@@ -9,7 +9,7 @@ import org.springframework.amqp.rabbit.retry.RejectAndDontRequeueRecoverer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.retry.interceptor.StatefulRetryOperationsInterceptor
+import org.springframework.retry.interceptor.RetryOperationsInterceptor
 
 @Configuration
 open class RabbitConfig {
@@ -35,10 +35,10 @@ open class RabbitConfig {
     }
 
     @Bean
-    open fun interceptor(): StatefulRetryOperationsInterceptor {
-        return RetryInterceptorBuilder.stateful()
+    open fun interceptor(): RetryOperationsInterceptor {
+        return RetryInterceptorBuilder.stateless()
                 .maxAttempts(3)
-                .backOffOptions(10000, 2.0, 30000)
+                .backOffOptions(1000, 5.0, 10000)
                 .recoverer(RejectAndDontRequeueRecoverer())
                 .build()
     }
