@@ -32,7 +32,7 @@ dependencies {
     compile 'org.ghost4j:ghost4j:1.0.1'
     compile 'com.google.zxing:javase:3.3.0'
 
-    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.springframework.boot:spring-boot-starter-logging"
 
     compile 'net.java.dev.jna:jna:4.1.0' // ghost4j doesn't support jna 4.2.2
