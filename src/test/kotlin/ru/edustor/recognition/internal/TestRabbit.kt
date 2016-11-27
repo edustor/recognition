@@ -19,7 +19,7 @@ class TestRabbit {
                 .setTimestamp(Instant.now().epochSecond)
                 .build()
 
-        val pdfStream = javaClass.getResource("/scanned.pdf").openStream()
+        val pdfStream = javaClass.getResource("/generated.pdf").openStream()
 
         val storageServiceMock = mock(PdfStorageService::class.java)
         `when`(storageServiceMock.getUploadedPdf(uploadedEvent.uuid)).thenReturn(pdfStream)
@@ -32,6 +32,8 @@ class TestRabbit {
         Assertions.assertEquals(uploadedEvent.uuid, result.uuid)
         Assertions.assertEquals(uploadedEvent.userId, result.userId)
         Assertions.assertEquals(0, result.pagesList[0].index)
-        Assertions.assertEquals("a5b9730a-ef08-4a9d-8950-c37d8d661f4b", result.pagesList[0].qrUuid)
+        Assertions.assertEquals(1, result.pagesList[1].index)
+        Assertions.assertEquals("da5ba7c5-7b26-48b9-8cc9-44a8bc92da9f", result.pagesList[0].qrUuid)
+        Assertions.assertEquals("e3d16e38-1bbf-4060-91a0-52801f56fbdd", result.pagesList[1].qrUuid)
     }
 }

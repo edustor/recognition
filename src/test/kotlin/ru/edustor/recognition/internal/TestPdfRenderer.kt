@@ -16,7 +16,7 @@ class TestPdfRenderer {
 
     @Test
     fun pageRenders() {
-        val blankPdfPageStream = javaClass.getResource("/scanned.pdf").openStream()
+        val blankPdfPageStream = javaClass.getResource("/generated.pdf").openStream()
         val renderer = PdfRenderer(blankPdfPageStream, 150)
         image = renderer.next()
         val outFile = File(ARTIFACTS_DIR, "pdf-rendered.png")
