@@ -19,7 +19,7 @@ open class RabbitConfig {
     }
 
     @Bean
-    open fun rebbitRejectedBinding(): Binding {
+    open fun rabbitRejectedBinding(): Binding {
         return Binding("rejected.edustor.ru", Binding.DestinationType.QUEUE, "reject.edustor.ru", "#", null)
     }
 }
