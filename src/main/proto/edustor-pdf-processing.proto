@@ -8,7 +8,19 @@ message PDFProcessingFinishedEvent {
 }
 
 message PdfUploadedEvent {
-    optional string uuid = 1;
-    optional string userId = 2;
+    required string uuid = 1;
+    required string userId = 2;
     optional int64 timestamp = 3;
+}
+
+message PdfRecognizedEvent {
+    required string uuid = 1;
+    required string userId = 2;
+    repeated PdfPage pages = 3;
+
+    message PdfPage {
+        required int32 index = 1;
+        optional string qrUuid = 2;
+    }
+
 }
