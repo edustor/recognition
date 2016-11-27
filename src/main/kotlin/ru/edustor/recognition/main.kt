@@ -1,4 +1,4 @@
-package ru.edustor.upload
+package ru.edustor.recognition
 
 import org.springframework.boot.SpringApplication
 
