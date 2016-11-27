@@ -23,9 +23,9 @@ open class RabbitHandler(var storage: PdfStorageService) {
             exchange = Exchange("internal.edustor.ru", type = ExchangeTypes.TOPIC,
                     ignoreDeclarationExceptions = "true",
                     durable = "true"),
-            key = "uploaded.pdf.events"
+            key = "uploaded.pdf.event"
     )))
-    @SendTo("internal.edustor.ru/recognized.pdf.events")
+    @SendTo("internal.edustor.ru/recognized.pdf.event")
     fun processFile(msg: ByteArray): ByteArray {
         val event: PdfUploadedEvent
         try {
