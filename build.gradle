@@ -12,12 +12,16 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M2'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
     }
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'spring-boot'
+apply plugin: 'com.google.protobuf'
+apply plugin: 'idea'
+
 
 repositories {
     mavenCentral()
@@ -27,10 +31,24 @@ configurations {
     all*.exclude group: "log4j"
 }
 
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.1.0'
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file("${protobuf.generatedFilesBaseDir}/main/java")
+    }
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'org.ghost4j:ghost4j:1.0.1'
     compile 'com.google.zxing:javase:3.3.0'
+    compile 'com.google.protobuf:protobuf-java:3.1.0'
+    compile 'com.google.protobuf:protobuf-java-util:3.1.0'
 
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.springframework.boot:spring-boot-starter-logging"
