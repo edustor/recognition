@@ -1,4 +1,4 @@
-package ru.edustor.recognition.pages
+package ru.edustor.recognition.internal
 
 import com.google.zxing.BinaryBitmap
 import com.google.zxing.DecodeHintType

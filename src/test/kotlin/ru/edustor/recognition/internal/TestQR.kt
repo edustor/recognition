@@ -1,4 +1,4 @@
-package ru.edustor.recognition.pages
+package ru.edustor.recognition.internal
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

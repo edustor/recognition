@@ -1,4 +1,4 @@
-package ru.edustor.recognition.pages
+package ru.edustor.recognition.internal
 
 import org.ghost4j.document.PDFDocument
 import org.ghost4j.renderer.SimpleRenderer

@@ -1,4 +1,4 @@
-package ru.edustor.recognition.pages
+package ru.edustor.recognition.internal
 
 import org.junit.jupiter.api.Test
 import java.awt.image.BufferedImage
