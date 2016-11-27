@@ -11,6 +11,8 @@ import ru.edustor.recognition.service.PdfStorageService
 
 @Component
 open class RabbitHandler(var storage: PdfStorageService) {
+    val UUID_REGEX = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}".toRegex()
+
     @RabbitListener(bindings = arrayOf(QueueBinding(
             value = Queue("recognition.edustor.ru/incoming", durable = "true", arguments = arrayOf(
                     Argument(name = "x-dead-letter-exchange", value = "reject.edustor.ru")
@@ -30,7 +32,9 @@ open class RabbitHandler(var storage: PdfStorageService) {
         var i = 0
         val pages: MutableList<PdfRecognizedEvent.PdfPage> = mutableListOf()
         renderer.forEach { renderedPage ->
-            val qrUuid = qrReader.read(renderedPage)
+            val qrData = qrReader.read(renderedPage)
+            val qrUuid = qrData?.let { UUID_REGEX.find(qrData)?.value }
+
             pages.add(PdfRecognizedEvent.PdfPage.newBuilder()
                     .setIndex(i++)
                     .setQrUuid(qrUuid)

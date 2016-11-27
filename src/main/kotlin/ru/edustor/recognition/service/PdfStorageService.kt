@@ -6,7 +6,7 @@ import ru.edustor.recognition.exception.PdfNotFoundException
 import java.io.InputStream
 
 @Service
-class PdfStorageService(
+open class PdfStorageService(
         url: String,
         accessKey: String,
         secretKey: String
@@ -17,12 +17,12 @@ class PdfStorageService(
         minio = MinioClient(url, accessKey, secretKey)
     }
 
-    fun getUploadedPdf(uuid: String): InputStream {
+    open fun getUploadedPdf(uuid: String): InputStream {
         return minio.getObject("edustor-pdf-uploads", "$uuid.pdf")
                 ?: throw PdfNotFoundException("Failed to find $uuid.pdf in edustor-pdf-uploads bucket")
     }
 
-    fun putPagePdf(pagePdfUuid: String, inputStream: InputStream, size: Long) {
+    open fun putPagePdf(pagePdfUuid: String, inputStream: InputStream, size: Long) {
         minio.putObject("edustor-pdf-recognised", "$pagePdfUuid.pdf", inputStream, size, "application/pdf")
     }
 }
