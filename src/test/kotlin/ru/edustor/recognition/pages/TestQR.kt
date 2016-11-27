@@ -40,4 +40,12 @@ class TestQR {
             Assertions.assertNotNull(qrResult)
         }
     }
+
+    @Test
+    fun blankQrReadFails() {
+        val image = ImageIO.read(javaClass.getResource("/blank.png"))
+        val qrReader = QrReader()
+        val result = qrReader.read(image)
+        Assertions.assertNull(result)
+    }
 }
