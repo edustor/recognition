@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage
 import java.io.InputStream
 import java.util.*
 
-class PdfRenderer(pdfStream: InputStream) : Iterator<BufferedImage> {
+class PdfRenderer(pdfStream: InputStream, resolution: Int = 150) : Iterator<BufferedImage> {
     val renderer: SimpleRenderer
     val pdfDocument: PDFDocument
 
@@ -19,7 +19,7 @@ class PdfRenderer(pdfStream: InputStream) : Iterator<BufferedImage> {
         lastPage = pdfDocument.pageCount - 1
 
         renderer = SimpleRenderer()
-        renderer.resolution = 200
+        renderer.resolution = resolution
     }
 
     override fun hasNext(): Boolean {

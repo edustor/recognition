@@ -6,6 +6,13 @@ import java.io.File
 import javax.imageio.ImageIO
 
 class TestQR {
+
+    val ARTIFACTS_DIR = File("build/test-results/qr")
+
+    init {
+        ARTIFACTS_DIR.mkdirs()
+    }
+
     @Test
     fun qr() {
         val image = ImageIO.read(javaClass.getResource("/zxing_test.png"))
@@ -17,24 +24,32 @@ class TestQR {
     }
 
     @Test
-    fun qr2() {
-        var failed = 0
+    fun testReadSubimage() {
+        val srcFolder = File(javaClass.getResource("/qr_test").path)
 
-        val pdfFolder = File(javaClass.getResource("/qr_pdf").path)
-        pdfFolder.listFiles().forEach { file ->
-            val pdfStream = file.inputStream()
-            val renderer = PdfRenderer(pdfStream)
+        srcFolder.listFiles().forEach { file ->
+            val image = ImageIO.read(file)
+
+            val QR_REGION_SIZE_PERCENT = 0.125
+            val QR_margin_SIZE_PERCENT = 0.01
+
+            val qrReginSize = (image.width * QR_REGION_SIZE_PERCENT).toInt()
+
+            val xMargin = (image.width * QR_margin_SIZE_PERCENT).toInt()
+            val yMargin = (image.height * QR_margin_SIZE_PERCENT).toInt()
+
+            val subimage = image.getSubimage(
+                    image.width - (qrReginSize + xMargin),
+                    image.height - (qrReginSize + yMargin),
+                    qrReginSize,
+                    qrReginSize
+            )
+
+            val croppedFile = File(ARTIFACTS_DIR, "${file.nameWithoutExtension}.cropped.png")
+            ImageIO.write(subimage, "png", croppedFile)
 
             val qrReader = QrReader()
-
-            renderer.forEach { p ->
-                val result = qrReader.read(p)
-                result ?: failed++
-            }
-
-            pdfStream.close()
+            val result = qrReader.read(subimage)
         }
-
-        println(failed)
     }
 }

@@ -8,7 +8,7 @@ import javax.imageio.ImageIO
 class TestPdfRenderer {
     var image: BufferedImage? = null
 
-    val ARTIFACTS_DIR = File("build/test-results")
+    val ARTIFACTS_DIR = File("build/test-results/pdf")
 
     init {
         ARTIFACTS_DIR.mkdirs()
@@ -17,7 +17,7 @@ class TestPdfRenderer {
     @Test
     fun pageRenders() {
         val blankPdfPageStream = javaClass.getResource("/scanned.pdf").openStream()
-        val renderer = PdfRenderer(blankPdfPageStream)
+        val renderer = PdfRenderer(blankPdfPageStream, 300)
         image = renderer.next()
         val outFile = File(ARTIFACTS_DIR, "pdf-rendered.png")
         outFile.parentFile.mkdirs()

@@ -7,6 +7,7 @@ import com.google.zxing.ReaderException
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource
 import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.qrcode.QRCodeReader
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.awt.image.BufferedImage
 import java.io.File
@@ -14,7 +15,7 @@ import javax.imageio.ImageIO
 
 class QrReader {
 
-    val logger = LoggerFactory.getLogger(QrReader::class.java)
+    val logger: Logger = LoggerFactory.getLogger(QrReader::class.java)
 
     fun read(image: BufferedImage): String? {
         var result = zxingRead(image)
