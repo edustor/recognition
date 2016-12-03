@@ -64,6 +64,8 @@ open class RabbitHandler(var storage: PdfStorageService, val rabbitTemplate: Rab
             rabbitTemplate.convertAndSend("internal.edustor", "recognized.pages.processing", recognizedEvent.toByteArray())
         }
 
+        storage.deleteUploadedPdf(event.uuid)
+
         logger.info("Successfully finished")
     }
 }

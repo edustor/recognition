@@ -14,13 +14,19 @@ open class PdfStorageService(
 ) {
     private val minio: MinioClient
 
+    val uploads_bucket = "edustor-pdf-uploads"
+
     init {
         minio = MinioClient(url, accessKey, secretKey)
     }
 
     open fun getUploadedPdf(uuid: String): InputStream {
-        return minio.getObject("edustor-pdf-uploads", "$uuid.pdf")
+        return minio.getObject(uploads_bucket, "$uuid.pdf")
                 ?: throw PdfNotFoundException("Failed to find $uuid.pdf in edustor-pdf-uploads bucket")
+    }
+
+    open fun deleteUploadedPdf(uuid: String) {
+        minio.removeObject(uploads_bucket, "$uuid.pdf")
     }
 
     open fun putPagePdf(pagePdfUuid: String, inputStream: InputStream, size: Long) {
