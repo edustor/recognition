@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.springframework.amqp.rabbit.core.RabbitTemplate
-import ru.edustor.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
 import ru.edustor.recognition.rabbit.RabbitHandler
 import ru.edustor.recognition.service.PdfStorageService
 import java.time.Instant

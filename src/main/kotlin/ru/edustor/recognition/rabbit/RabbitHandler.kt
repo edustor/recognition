@@ -9,8 +9,8 @@ import org.springframework.amqp.rabbit.annotation.*
 import org.springframework.amqp.rabbit.annotation.Queue
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
-import ru.edustor.proto.internal.EdustorPdfProcessingProtos.PageRecognizedEvent
-import ru.edustor.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PageRecognizedEvent
+import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
 import ru.edustor.recognition.internal.PdfRenderer
 import ru.edustor.recognition.internal.QrReader
 import ru.edustor.recognition.service.PdfStorageService
