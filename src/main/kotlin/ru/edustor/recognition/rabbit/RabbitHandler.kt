@@ -11,14 +11,16 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
 import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PageRecognizedEvent
 import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.recognition.exception.PdfNotFoundException
 import ru.edustor.recognition.internal.PageExtractor
 import ru.edustor.recognition.internal.PdfRenderer
 import ru.edustor.recognition.internal.QrReader
-import ru.edustor.recognition.service.PdfStorageService
+import ru.edustor.recognition.service.BinaryObjectStorageService
+import ru.edustor.recognition.service.BinaryObjectStorageService.ObjectType
 import java.util.*
 
 @Component
-open class RabbitHandler(var storage: PdfStorageService, val rabbitTemplate: RabbitTemplate) {
+open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemplate: RabbitTemplate) {
     val UUID_REGEX = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}".toRegex()
     val logger: Logger = LoggerFactory.getLogger(RabbitHandler::class.java)
 
@@ -41,7 +43,8 @@ open class RabbitHandler(var storage: PdfStorageService, val rabbitTemplate: Rab
 
         logger.info("Processing file ${event.uuid} uploaded by ${event.userId}")
 
-        val uploadedPdfStream = storage.getUploadedPdf(event.uuid)
+        val uploadedPdfStream = storage.get(ObjectType.PDF_UPLOAD, event.uuid)
+            ?: throw PdfNotFoundException("Failed to find file with id ${event.uuid}")
 
         val pageExtractor = PageExtractor(uploadedPdfStream)
 
@@ -57,7 +60,7 @@ open class RabbitHandler(var storage: PdfStorageService, val rabbitTemplate: Rab
 
             val pageUuid = UUID.randomUUID().toString()
 
-            storage.putPagePdf(pageUuid, pageBytes.inputStream(), pageBytes.size.toLong())
+            storage.put(ObjectType.PAGE, pageUuid, pageBytes.inputStream(), pageBytes.size.toLong())
 
             val recognizedEvent = PageRecognizedEvent.newBuilder()
                     .setUploadUuid(event.uuid)
@@ -71,7 +74,7 @@ open class RabbitHandler(var storage: PdfStorageService, val rabbitTemplate: Rab
             logger.info("Processed page $i ($pageUuid). QR: $qrData")
         }
 
-        storage.deleteUploadedPdf(event.uuid)
+        storage.delete(ObjectType.PDF_UPLOAD, event.uuid)
 
         logger.info("File processing finished: ${event.uuid}")
     }

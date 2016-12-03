@@ -6,7 +6,7 @@ import org.mockito.Mockito.mock
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
 import ru.edustor.recognition.rabbit.RabbitHandler
-import ru.edustor.recognition.service.PdfStorageService
+import ru.edustor.recognition.service.BinaryObjectStorageService
 import java.time.Instant
 
 class RabbitTests {
@@ -20,7 +20,7 @@ class RabbitTests {
 
         val pdfStream = javaClass.getResource("/generated.pdf").openStream()
 
-        val storageServiceMock = mock(PdfStorageService::class.java)
+        val storageServiceMock = mock(BinaryObjectStorageService::class.java)
         `when`(storageServiceMock.getUploadedPdf(uploadedEvent.uuid)).thenReturn(pdfStream)
 
         val rabbitMock = mock(RabbitTemplate::class.java)
