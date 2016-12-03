@@ -8,8 +8,8 @@ import org.springframework.amqp.core.ExchangeTypes
 import org.springframework.amqp.rabbit.annotation.*
 import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.stereotype.Component
-import ru.edustor.proto.EdustorPdfProcessingProtos.PdfRecognizedEvent
-import ru.edustor.proto.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.proto.internal.EdustorPdfProcessingProtos.PdfRecognizedEvent
+import ru.edustor.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
 import ru.edustor.recognition.internal.PdfRenderer
 import ru.edustor.recognition.internal.QrReader
 import ru.edustor.recognition.service.PdfStorageService

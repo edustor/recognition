@@ -1,6 +1,6 @@
 package ru.edustor.proto;
 
-option java_package = "ru.edustor.proto";
+option java_package = "ru.edustor.proto.internal";
 option java_outer_classname = "EdustorPdfProcessingProtos";
 
 message PDFProcessingFinishedEvent {

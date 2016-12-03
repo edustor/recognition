@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
-import ru.edustor.proto.EdustorPdfProcessingProtos.PdfRecognizedEvent
-import ru.edustor.proto.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.proto.internal.EdustorPdfProcessingProtos.PdfRecognizedEvent
+import ru.edustor.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
 import ru.edustor.recognition.rabbit.RabbitHandler
 import ru.edustor.recognition.service.PdfStorageService
 import java.time.Instant
