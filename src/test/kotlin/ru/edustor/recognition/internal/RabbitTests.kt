@@ -10,7 +10,7 @@ import ru.edustor.recognition.rabbit.RabbitHandler
 import ru.edustor.recognition.service.PdfStorageService
 import java.time.Instant
 
-class TestRabbit {
+class RabbitTests {
     @Test
     fun testRabbit() {
         val uploadedEvent = PdfUploadedEvent.newBuilder()

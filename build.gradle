@@ -10,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M2'
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
     }
@@ -69,7 +69,7 @@ dependencies {
 
     compile 'net.java.dev.jna:jna:4.1.0' // ghost4j doesn't support jna 4.2.2
 
-    testCompile "org.junit.jupiter:junit-jupiter-api:5.0.0-M2"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.0.0-M2"
+    testCompile "org.junit.jupiter:junit-jupiter-api:5.0.0-M3"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.0.0-M3"
     testCompile "org.mockito:mockito-core:2.+"
 }

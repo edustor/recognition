@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
-class TestPdfRenderer {
+class PdfRendererTests {
     var image: BufferedImage? = null
 
     val ARTIFACTS_DIR = File("build/test-results/pdf")

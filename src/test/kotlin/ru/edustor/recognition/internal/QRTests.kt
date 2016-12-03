@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import java.io.File
 import javax.imageio.ImageIO
 
-class TestQR {
+class QRTests {
 
     val ARTIFACTS_DIR = File("build/test-results/qr")
 
