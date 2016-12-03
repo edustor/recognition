@@ -11,6 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
 import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PageRecognizedEvent
 import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.recognition.internal.PageExtractor
 import ru.edustor.recognition.internal.PdfRenderer
 import ru.edustor.recognition.internal.QrReader
 import ru.edustor.recognition.service.PdfStorageService
@@ -41,15 +42,22 @@ open class RabbitHandler(var storage: PdfStorageService, val rabbitTemplate: Rab
         logger.info("Processing file ${event.uuid} uploaded by ${event.userId}")
 
         val uploadedPdfStream = storage.getUploadedPdf(event.uuid)
-        val renderer = PdfRenderer(uploadedPdfStream)
-        val qrReader = QrReader()
+
+        val pageExtractor = PageExtractor(uploadedPdfStream)
 
         var i = 0
-        renderer.forEach { renderedPage ->
+        pageExtractor.forEach { pageBytes ->
+            val renderer = PdfRenderer(pageBytes.inputStream())
+            val renderedPage = renderer.next()
+
+            val qrReader = QrReader()
+
             val qrData = qrReader.read(renderedPage)
             val qrUuid = qrData?.let { UUID_REGEX.find(qrData)?.value }
 
             val pageUuid = UUID.randomUUID().toString()
+
+            storage.putPagePdf(pageUuid, pageBytes.inputStream(), pageBytes.size.toLong())
 
             val recognizedEvent = PageRecognizedEvent.newBuilder()
                     .setUploadUuid(event.uuid)
@@ -58,14 +66,13 @@ open class RabbitHandler(var storage: PdfStorageService, val rabbitTemplate: Rab
                     .setQrUuid(qrUuid)
                     .setUserId(event.userId)
                     .build()
+            rabbitTemplate.convertAndSend("internal.edustor", "recognized.pages.processing", recognizedEvent.toByteArray())
 
             logger.info("Processed page $i ($pageUuid). QR: $qrData")
-
-            rabbitTemplate.convertAndSend("internal.edustor", "recognized.pages.processing", recognizedEvent.toByteArray())
         }
 
         storage.deleteUploadedPdf(event.uuid)
 
-        logger.info("Successfully finished")
+        logger.info("File processing finished: ${event.uuid}")
     }
 }

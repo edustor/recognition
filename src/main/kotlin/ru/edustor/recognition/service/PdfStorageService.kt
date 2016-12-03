@@ -15,9 +15,13 @@ open class PdfStorageService(
     private val minio: MinioClient
 
     val uploads_bucket = "edustor-pdf-uploads"
+    val processed_pages_bucket = "edustor-pages-alpha"
 
     init {
         minio = MinioClient(url, accessKey, secretKey)
+        if (!minio.bucketExists(processed_pages_bucket)) {
+            minio.makeBucket(processed_pages_bucket)
+        }
     }
 
     open fun getUploadedPdf(uuid: String): InputStream {
@@ -30,6 +34,6 @@ open class PdfStorageService(
     }
 
     open fun putPagePdf(pagePdfUuid: String, inputStream: InputStream, size: Long) {
-        minio.putObject("edustor-pdf-recognised", "$pagePdfUuid.pdf", inputStream, size, "application/pdf")
+        minio.putObject(processed_pages_bucket, "$pagePdfUuid.pdf", inputStream, size, "application/pdf")
     }
 }
