@@ -13,14 +13,10 @@ message PdfUploadedEvent {
     optional int64 timestamp = 3;
 }
 
-message PdfRecognizedEvent {
-    required string uuid = 1;
-    required string userId = 2;
-    repeated PdfPage pages = 3;
-
-    message PdfPage {
-        required int32 index = 1;
-        optional string qrUuid = 2;
-    }
-
+message PageRecognizedEvent {
+    required string uploadUuid = 1;
+    required string pageUuid = 2;
+    required string userId = 3;
+    optional int32 pageIndex = 4;
+    optional string qrUuid = 5;
 }

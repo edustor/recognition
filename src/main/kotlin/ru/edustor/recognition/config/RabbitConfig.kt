@@ -15,17 +15,17 @@ import org.springframework.retry.interceptor.RetryOperationsInterceptor
 open class RabbitConfig {
     @Bean
     open fun rabbitRejectedExchange(): TopicExchange {
-        return TopicExchange("reject.edustor.ru", true, false)
+        return TopicExchange("reject.edustor", true, false)
     }
 
     @Bean
     open fun rabbitRejectedQueue(): Queue {
-        return Queue("rejected.edustor.ru", true, false, false)
+        return Queue("rejected.edustor", true, false, false)
     }
 
     @Bean
     open fun rabbitRejectedBinding(): Binding {
-        return Binding("rejected.edustor.ru", Binding.DestinationType.QUEUE, "reject.edustor.ru", "#", null)
+        return Binding("rejected.edustor", Binding.DestinationType.QUEUE, "reject.edustor", "#", null)
     }
 
     @Autowired fun configureContainer(factory: SimpleRabbitListenerContainerFactory) {
