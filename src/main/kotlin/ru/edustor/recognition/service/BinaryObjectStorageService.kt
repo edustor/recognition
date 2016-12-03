@@ -2,12 +2,10 @@ package ru.edustor.recognition.service
 
 import io.minio.MinioClient
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Service
 import java.io.InputStream
 
 @Service
-@ConditionalOnProperty("S3_URL")
 open class BinaryObjectStorageService(
         @Value("\${S3_URL}") url: String,
         @Value("\${S3_ACCESS_KEY}") accessKey: String,
