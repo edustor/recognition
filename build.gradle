@@ -4,7 +4,7 @@ version '0.5'
 buildscript {
     ext.kotlin_version = '1.0.5-2'
     ext.spring_boot_version = '1.4.1.RELEASE'
-    ext.edustor_commons_version = '893da56'
+    ext.edustor_commons_version = '53fcd6d'
 
     repositories {
         mavenCentral()
@@ -44,6 +44,7 @@ dependencies {
 
     compile "ru.edustor.commons:protobuf:$edustor_commons_version"
     compile "ru.edustor.commons:storage:$edustor_commons_version"
+    compile "ru.edustor.commons:rabbit:$edustor_commons_version"
 
     compile 'net.java.dev.jna:jna:4.1.0' // ghost4j doesn't support jna 4.2.2
 
