@@ -11,12 +11,12 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
 import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PageRecognizedEvent
 import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.commons.storage.service.BinaryObjectStorageService
+import ru.edustor.commons.storage.service.BinaryObjectStorageService.ObjectType
 import ru.edustor.recognition.exception.PdfNotFoundException
 import ru.edustor.recognition.internal.PageExtractor
 import ru.edustor.recognition.internal.PdfRenderer
 import ru.edustor.recognition.internal.QrReader
-import ru.edustor.recognition.service.BinaryObjectStorageService
-import ru.edustor.recognition.service.BinaryObjectStorageService.ObjectType
 import java.util.*
 
 @Component

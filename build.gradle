@@ -41,7 +41,8 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-amqp"
 
-    compile 'ru.edustor.commons:protobuf:adfbffa'
+    compile 'ru.edustor.commons:protobuf:e6abdc6'
+    compile 'ru.edustor.commons:storage:e6abdc6'
 
     compile 'net.java.dev.jna:jna:4.1.0' // ghost4j doesn't support jna 4.2.2
 
