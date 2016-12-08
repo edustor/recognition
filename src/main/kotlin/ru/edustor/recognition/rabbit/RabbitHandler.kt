@@ -68,6 +68,7 @@ open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemp
                     .setPageUuid(pageUuid)
                     .setQrUuid(qrUuid)
                     .setUserId(event.userId)
+                    .setTargetLessonId(event.targetLessonId)
                     .build()
             rabbitTemplate.convertAndSend("internal.edustor", "recognized.pages.processing", recognizedEvent.toByteArray())
 
