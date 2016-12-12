@@ -4,7 +4,7 @@ version '0.5'
 buildscript {
     ext.kotlin_version = '1.0.5-2'
     ext.spring_boot_version = '1.4.1.RELEASE'
-    ext.edustor_commons_version = '68adcee'
+    ext.edustor_commons_version = '3fa1232'
 
     repositories {
         mavenCentral()
@@ -37,6 +37,7 @@ dependencies {
     compile 'com.google.zxing:javase:3.3.0'
     compile 'io.minio:minio:2.0.4'
     compile 'com.itextpdf:kernel:7.0.1'
+    compile 'commons-codec:commons-codec:1.10'
 
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.springframework.boot:spring-boot-starter-logging"

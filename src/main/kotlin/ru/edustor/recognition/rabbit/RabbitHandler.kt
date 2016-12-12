@@ -1,5 +1,6 @@
 package ru.edustor.recognition.rabbit
 
+import org.apache.commons.codec.digest.DigestUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.amqp.core.ExchangeTypes
@@ -51,6 +52,7 @@ open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemp
 
             val pageUuid = UUID.randomUUID().toString()
 
+            val fileMD5 = DigestUtils.md5Hex(pageBytes)
             storage.put(ObjectType.PAGE, pageUuid, pageBytes.inputStream(), pageBytes.size.toLong())
 
             val recognizedEvent = PageRecognizedEvent(event.uuid,
@@ -59,7 +61,8 @@ open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemp
                     i++,
                     qrUuid,
                     event.targetLessonId,
-                    event.timestamp)
+                    event.timestamp,
+                    fileMD5)
             rabbitTemplate.convertAndSend("internal.edustor", "recognized.pages.processing", recognizedEvent)
 
             logger.info("Processed page $i ($pageUuid). QR: $qrData")
