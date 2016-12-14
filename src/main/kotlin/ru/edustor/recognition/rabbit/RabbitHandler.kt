@@ -59,6 +59,7 @@ open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemp
                     pageUuid,
                     event.userId,
                     i++,
+                    pageExtractor.lastPage,
                     qrUuid,
                     event.targetLessonId,
                     event.timestamp,
