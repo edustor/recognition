@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.springframework.amqp.rabbit.core.RabbitTemplate
-import ru.edustor.commons.protobuf.proto.internal.EdustorPdfProcessingProtos.PdfUploadedEvent
+import ru.edustor.commons.models.internal.processing.pdf.PdfUploadedEvent
 import ru.edustor.commons.storage.service.BinaryObjectStorageService
 import ru.edustor.commons.storage.service.BinaryObjectStorageService.ObjectType.PDF_UPLOAD
 import ru.edustor.recognition.rabbit.RabbitHandler
@@ -13,11 +13,11 @@ import java.time.Instant
 class RabbitTests {
     @Test
     fun testRabbit() {
-        val uploadedEvent = PdfUploadedEvent.newBuilder()
-                .setUserId("844fc749-1efb-448e-99a9-51e5a4eb2e4f")
-                .setUuid("3559c71e-a9ea-4493-883f-ee080047bb1b")
-                .setTimestamp(Instant.now().epochSecond)
-                .build()
+        val uploadedEvent = PdfUploadedEvent(
+                uuid = "3559c71e-a9ea-4493-883f-ee080047bb1b",
+                userId = "844fc749-1efb-448e-99a9-51e5a4eb2e4f",
+                timestamp = Instant.now(),
+                targetLessonId = null)
 
         val pdfStream = javaClass.getResource("/generated.pdf").openStream()
 
@@ -28,7 +28,7 @@ class RabbitTests {
 
         val rabbitHandler = RabbitHandler(storageServiceMock, rabbitMock)
 
-        rabbitHandler.processFile(uploadedEvent.toByteArray())
+        rabbitHandler.processFile(uploadedEvent)
 
 //        TODO: Assert result
 
