@@ -3,9 +3,9 @@ import org.ajoberstar.grgit.Grgit
 import java.time.Instant
 
 buildscript {
-    ext.kotlin_version = '1.0.5-2'
+    ext.kotlin_version = '1.0.6'
     ext.spring_boot_version = '1.4.1.RELEASE'
-    ext.edustor_commons_version = 'df9337f'
+    ext.edustor_commons_version = '6d523bc'
 
     repositories {
         mavenCentral()
@@ -28,7 +28,7 @@ apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'spring-boot'
 
 group 'ru.edustor'
-version '0.6.2'
+version '0.8-m1'
 
 repositories {
     mavenCentral()
