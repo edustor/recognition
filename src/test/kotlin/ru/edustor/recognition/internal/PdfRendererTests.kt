@@ -1,6 +1,6 @@
 package ru.edustor.recognition.internal
 
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO

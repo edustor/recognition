@@ -1,7 +1,7 @@
 package ru.edustor.recognition.internal
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 import java.io.File
 import javax.imageio.ImageIO
 
@@ -21,7 +21,7 @@ class QRTests {
         srcFolder.listFiles().forEach { file ->
             val image = ImageIO.read(file)
             val result = qrReader.read(image)
-            Assertions.assertNotNull(result)
+            assertThat(result).isNotNull()
         }
     }
 
@@ -37,7 +37,7 @@ class QRTests {
 
             val croppedFile = File(ARTIFACTS_DIR, "${file.nameWithoutExtension}.cropped.png")
             ImageIO.write(subimage, "png", croppedFile)
-            Assertions.assertNotNull(qrResult)
+            assertThat(qrResult).isNotNull()
         }
     }
 
@@ -46,6 +46,6 @@ class QRTests {
         val image = ImageIO.read(javaClass.getResource("/blank.png"))
         val qrReader = QrReader()
         val result = qrReader.read(image)
-        Assertions.assertNull(result)
+        assertThat(result).isNull()
     }
 }

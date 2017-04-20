@@ -1,6 +1,6 @@
 package ru.edustor.recognition.internal
 
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.springframework.amqp.rabbit.core.RabbitTemplate
