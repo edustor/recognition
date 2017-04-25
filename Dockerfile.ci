@@ -1,7 +1,0 @@
-FROM #CI_BASE_IMAGE_HERE
-
-WORKDIR /code
-
-ADD build/dist/edustor-recognition.jar .
-
-CMD java -jar edustor-recognition.jar

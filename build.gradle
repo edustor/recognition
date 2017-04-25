@@ -5,7 +5,6 @@ import java.time.Instant
 buildscript {
     ext.kotlin_version = '1.1.1'
     ext.spring_boot_version = '1.4.1.RELEASE'
-    ext.edustor_commons_version = '66cb112'
 
     repositories {
         mavenCentral()
@@ -30,7 +29,6 @@ version '0.9-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
 }
 
 configurations {
@@ -77,10 +75,10 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-amqp"
 
-    compile "ru.edustor.commons:models:$edustor_commons_version"
-    compile "ru.edustor.commons:storage:$edustor_commons_version"
-    compile "ru.edustor.commons:rabbit:$edustor_commons_version"
-    compile "ru.edustor.commons:version:$edustor_commons_version"
+    compile project(':edustor-commons:version')
+    compile project(':edustor-commons:storage')
+    compile project(':edustor-commons:rabbit')
+    compile project(':edustor-commons:models')
 
     compile 'net.java.dev.jna:jna:4.1.0' // ghost4j doesn't support jna 4.2.2
 
