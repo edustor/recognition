@@ -11,6 +11,7 @@ jobs:
       - run: git submodule sync && git submodule update --init
       - restore_cache:
           key: edustor-recognition-gradle-{{ checksum "build.gradle" }}
+      - run: apt-get update && apt-get install libgs-dev zbar-tools -y
       - run: |
           ./gradlew build
           rm build/dist/*.original
@@ -22,6 +23,7 @@ jobs:
           key: edustor-recognition-{{ .Revision }}
           paths:
             - ~/edustor-recognition/build/dist
+            - /var/cache/apt/archives
       - store_artifacts:
           path: ~/edustor-recognition/build/dist
           destination: edustor-recognition
