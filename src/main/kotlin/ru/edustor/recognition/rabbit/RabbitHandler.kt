@@ -58,7 +58,7 @@ open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemp
             val recognizedEvent = PageRecognizedEvent(event.uuid,
                     pageUuid,
                     event.userId,
-                    ++i,
+                    i++,
                     pageExtractor.lastPage,
                     qrUuid,
                     event.targetLessonId,
@@ -66,7 +66,7 @@ open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemp
                     fileMD5)
             rabbitTemplate.convertAndSend("internal.edustor", "recognized.pages.processing", recognizedEvent)
 
-            logger.info("Processed page $i ($pageUuid). QR: $qrData")
+            logger.info("Processed page $i/${pageExtractor.lastPage} ($pageUuid). QR: $qrData")
         }
 
         storage.delete(ObjectType.PDF_UPLOAD, event.uuid)
