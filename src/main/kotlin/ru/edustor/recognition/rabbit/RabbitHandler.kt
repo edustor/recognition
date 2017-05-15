@@ -58,7 +58,7 @@ open class RabbitHandler(var storage: BinaryObjectStorageService, val rabbitTemp
             val recognizedEvent = PageRecognizedEvent(event.uuid,
                     pageUuid,
                     event.userId,
-                    i++,
+                    ++i,
                     pageExtractor.lastPage,
                     qrUuid,
                     event.targetLessonId,
