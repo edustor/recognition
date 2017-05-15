@@ -8,8 +8,8 @@ import org.springframework.amqp.rabbit.annotation.*
 import org.springframework.amqp.rabbit.annotation.Queue
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
-import ru.edustor.commons.models.internal.processing.pdf.PageRecognizedEvent
-import ru.edustor.commons.models.internal.processing.pdf.PdfUploadedEvent
+import ru.edustor.commons.models.rabbit.processing.pages.PageRecognizedEvent
+import ru.edustor.commons.models.rabbit.processing.pages.PdfUploadedEvent
 import ru.edustor.commons.storage.service.BinaryObjectStorageService
 import ru.edustor.commons.storage.service.BinaryObjectStorageService.ObjectType
 import ru.edustor.recognition.exception.PdfNotFoundException

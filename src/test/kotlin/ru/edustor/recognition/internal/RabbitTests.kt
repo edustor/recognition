@@ -4,7 +4,7 @@ import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.springframework.amqp.rabbit.core.RabbitTemplate
-import ru.edustor.commons.models.internal.processing.pdf.PdfUploadedEvent
+import ru.edustor.commons.models.rabbit.processing.pages.PdfUploadedEvent
 import ru.edustor.commons.storage.service.BinaryObjectStorageService
 import ru.edustor.commons.storage.service.BinaryObjectStorageService.ObjectType.PDF_UPLOAD
 import ru.edustor.recognition.rabbit.RabbitHandler
